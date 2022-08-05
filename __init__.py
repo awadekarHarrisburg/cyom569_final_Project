@@ -4,6 +4,8 @@ import functools
 from flask import Flask, render_template, redirect, url_for, request, session, flash, g
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
+
+
 def create_app(test_config=None):
     app = Flask(__name__)
     app.config.from_mapping(
@@ -30,7 +32,7 @@ def create_app(test_config=None):
             if not username:
                 error = 'Username is required'
             elif not password:
-                error =  'Password is required'
+                error = 'Password is required'
             elif User.query.filter_by(username=username).first():
                 error = 'Username is already taken.'
 
@@ -88,6 +90,7 @@ def create_app(test_config=None):
     def page_note_found(e):
         return render_template('404.html'), 404
     @app.before_request
+
     def load_user():
         user_id = session.get('user_id')
         if user_id:
